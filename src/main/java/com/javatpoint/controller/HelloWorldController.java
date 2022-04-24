@@ -7,6 +7,6 @@ public class HelloWorldController
 @RequestMapping("/")
 public String hello() 
 {
-return "Welcome to Tamasjit's AWS";
+return "Welcome to Tamasjit's AWS t2.medium";
 }
 }
