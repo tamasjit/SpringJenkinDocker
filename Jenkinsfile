@@ -1,7 +1,7 @@
 node {
     def WORKSPACE = "/var/lib/jenkins/workspace/springboot-deploy"
     def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
-    def DOCKERHUB_CREDENTIALS=credentials('docker-hub-credentials')
+    //def DOCKERHUB_CREDENTIALS=credentials('docker-hub-credentials')
     try{
 //          notifyBuild('STARTED')
          stage('Clone Repo') {
@@ -25,9 +25,11 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            echo "Docker Image Tag Name: ${dockerImageTag}"
-            sh "docker push tamasjit/springboot-deploy:${dockerImageTag}"
+         environment {
+                DOCKER_HUB_LOGIN = credentials('docker-hub-credentials')
+            }
+            sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
+            sh "docker push tamasjit/springboot-deploy:latest"
         }
     }
     
