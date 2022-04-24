@@ -30,9 +30,10 @@ node {
             sh "docker push tamasjit/springboot-deploy:${dockerImageTag}"
         }
     }
-    }catch(e){
+    
+    catch(e){
 //         currentBuild.result = "FAILED"
-        throw e
+        throw es
     }finally{
 //         notifyBuild(currentBuild.result)
     }
