@@ -28,9 +28,9 @@ node {
          environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub-credentials')
             }
-            sh "docker tag springboot-deploy tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
+            sh "docker tag springboot-deploy:${dockerImageTag} tamasjit/springboot-deploy"
             sh "docker login --username=tamasjit --password=123456789"
-            sh "docker push tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
+            sh "docker push tamasjit/springboot-deploy"
         }
     }
     
