@@ -12,13 +12,13 @@ node {
                 branch: 'main'
          }
           stage('Build docker') {
-                 dockerImage = docker.build("tamasjit/springboot-deploy:${env.BUILD_NUMBER}")
+                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
           }
 
           stage('Deploy docker'){
                   echo "Docker Image Tag Name: ${dockerImageTag}"
                   sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
-                  sh "docker run --name tamasjit/springboot-deploy -d -p 8081:8081 tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
+                  sh "docker run --name springboot-deploy -d -p 8081:8081 springboot-deploy:${env.BUILD_NUMBER}"
           }
           stage('Push image') {
         /* Finally, we'll push the image with two tags:
@@ -28,7 +28,7 @@ node {
          environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub-credentials')
             }
-            sh "docker tag ${env.BUILD_NUMBER} tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
+            sh "docker tag springboot-deploy tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
             sh "docker login --username=tamasjit --password=123456789"
             sh "docker push tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
         }
