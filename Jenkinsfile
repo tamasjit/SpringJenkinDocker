@@ -28,7 +28,7 @@ node {
          environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub-credentials')
             }
-            sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
+            sh "docker login --username=tamasjit --password=123456789"
             sh "docker push tamasjit/springboot-deploy:latest"
         }
     }
