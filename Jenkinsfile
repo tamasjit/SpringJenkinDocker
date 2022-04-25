@@ -12,7 +12,7 @@ node {
                 branch: 'main'
          }
           stage('Build docker') {
-                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+                 dockerImage = docker.build("tamasjit/springboot-deploy:${env.BUILD_NUMBER}")
           }
 
           stage('Deploy docker'){
@@ -28,7 +28,7 @@ node {
          environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub-credentials')
             }
-            sh "docker tag ${dockerImageTag} tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
+            sh "docker tag ${env.BUILD_NUMBER} tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
             sh "docker login --username=tamasjit --password=123456789"
             sh "docker push tamasjit/springboot-deploy:${env.BUILD_NUMBER}"
         }
